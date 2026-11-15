@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabbir Hossain | Researcher & EEE Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+
+        /* ---------- Scroll reveal ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(.16,.84,.44,1),
+                        transform 0.7s cubic-bezier(.16,.84,.44,1);
+            transition-delay: var(--reveal-delay, 0s);
+            will-change: opacity, transform;
+        }
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- Card lift on hover (any rounded/bordered card) ---------- */
+        div[class*="rounded-xl"][class*="border"] {
+            transition: transform 0.35s cubic-bezier(.16,.84,.44,1),
+                        box-shadow 0.35s ease,
+                        border-color 0.35s ease;
+        }
+        div[class*="rounded-xl"][class*="border"]:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 30px -12px rgba(15, 23, 42, 0.16);
+        }
+
+        /* ---------- Nav ---------- */
+        nav { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+        nav.scrolled { box-shadow: 0 4px 20px -8px rgba(15, 23, 42, 0.12); }
+        nav a {
+            position: relative;
+        }
+        nav .hidden.md\:flex a::after {
+            content: "";
+            position: absolute;
+            left: 0; bottom: -4px;
+            width: 0%; height: 2px;
+            background: #2563eb;
+            transition: width 0.3s cubic-bezier(.16,.84,.44,1);
+        }
+        nav .hidden.md\:flex a:hover::after,
+        nav .hidden.md\:flex a.active-link::after {
+            width: 100%;
+        }
+        nav .hidden.md\:flex a.active-link {
+            color: #2563eb;
+        }
+
+        /* ---------- Buttons ---------- */
+        button, a {
+            transition: transform 0.25s cubic-bezier(.16,.84,.44,1),
+                        box-shadow 0.25s ease,
+                        background-color 0.25s ease,
+                        color 0.25s ease;
+        }
+        button[type="submit"]:hover, a[class*="bg-white"]:hover {
+            transform: translateY(-2px);
+        }
+        button[type="submit"]:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* ---------- Hero portrait subtle zoom ---------- */
+        #about img {
+            transition: transform 0.6s cubic-bezier(.16,.84,.44,1);
+        }
+        #about .group:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ---------- Certificate / skill tag pop ---------- */
+        #skills span, #certificates button {
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+        #skills span:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Lightbox ---------- */
+        #certLightbox {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #certLightbox.flex {
+            opacity: 1;
+        }
+        #certLightbox img {
+            transform: scale(0.94);
+            transition: transform 0.3s cubic-bezier(.16,.84,.44,1);
+        }
+        #certLightbox.flex img {
+            transform: scale(1);
+        }
+
+        /* ---------- Intro video trigger ---------- */
+        @keyframes playPulseRing {
+            0%   { transform: scale(1);   opacity: 0.65; }
+            70%  { transform: scale(1.55); opacity: 0; }
+            100% { transform: scale(1.55); opacity: 0; }
+        }
+        .play-pulse-ring {
+            animation: playPulseRing 2.2s cubic-bezier(.4,0,.6,1) infinite;
+        }
+        @keyframes introHintBounce {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-5px); }
+        }
+        .intro-hint {
+            animation: introHintBounce 1.8s ease-in-out infinite;
+        }
+
+        /* ---------- Video lightbox ---------- */
+        #videoLightbox {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #videoLightbox.flex { opacity: 1; }
+        #videoLightbox video {
+            transform: scale(0.94);
+            transition: transform 0.3s cubic-bezier(.16,.84,.44,1);
+        }
+        #videoLightbox.flex video { transform: scale(1); }
+
+        /* ---------- Respect reduced motion ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, div[class*="rounded-xl"][class*="border"], #about img,
+            #skills span, #certLightbox, #certLightbox img, button, a,
+            .play-pulse-ring, .intro-hint, #videoLightbox, #videoLightbox video {
+                transition: none !important;
+                transform: none !important;
+                animation: none !important;
+                opacity: 1 !important;
+            }
+        }
+
+        /* =====================================================
+           DARK MODE
+           Tailwind is loaded via the CDN <script> build, which
+           doesn't support editing every class in this file with
+           dark: variants practically. Instead, this remaps every
+           color utility class already used on the page whenever
+           <html> carries the .dark class, toggled by the switch
+           in the nav bar. No per-element edits needed.
+           ===================================================== */
+        html.dark { color-scheme: dark; }
+        html.dark body { background-color: #0f172a; }
+
+        html.dark [class*="bg-white"]     { background-color: #1e293b !important; }
+        html.dark [class*="bg-slate-50"]  { background-color: #0f172a !important; }
+        html.dark [class*="bg-slate-100"] { background-color: #1e293b !important; }
+        html.dark [class*="bg-slate-200"] { background-color: #334155 !important; }
+        html.dark [class*="bg-slate-300"] { background-color: #475569 !important; }
+
+        html.dark [class*="bg-blue-50"]    { background-color: rgba(37, 99, 235, 0.15) !important; }
+        html.dark [class*="bg-amber-50"]   { background-color: rgba(217, 119, 6, 0.15) !important; }
+        html.dark [class*="bg-amber-100"]  { background-color: rgba(217, 119, 6, 0.22) !important; }
+        html.dark [class*="bg-emerald-50"] { background-color: rgba(5, 150, 105, 0.15) !important; }
+        html.dark [class*="bg-indigo-50"]  { background-color: rgba(79, 70, 229, 0.15) !important; }
+        html.dark [class*="bg-indigo-100"] { background-color: rgba(79, 70, 229, 0.22) !important; }
+
+        html.dark [class*="border-white"]    { border-color: #334155 !important; }
+        html.dark [class*="border-slate-100"]{ border-color: #1e293b !important; }
+        html.dark [class*="border-slate-200"]{ border-color: #334155 !important; }
+        html.dark [class*="border-blue-100"] { border-color: rgba(37, 99, 235, 0.3) !important; }
+        html.dark [class*="border-blue-200"] { border-color: rgba(37, 99, 235, 0.4) !important; }
+        html.dark [class*="border-amber-100"]{ border-color: rgba(217, 119, 6, 0.3) !important; }
+        html.dark [class*="border-emerald-200"]{ border-color: rgba(5, 150, 105, 0.35) !important; }
+        html.dark [class*="border-indigo-100"] { border-color: rgba(79, 70, 229, 0.3) !important; }
+
+        html.dark [class*="text-slate-950"] { color: #f8fafc !important; }
+        html.dark [class*="text-slate-900"] { color: #f1f5f9 !important; }
+        html.dark [class*="text-slate-800"] { color: #e2e8f0 !important; }
+        html.dark [class*="text-slate-700"] { color: #cbd5e1 !important; }
+        html.dark [class*="text-slate-600"] { color: #94a3b8 !important; }
+        html.dark [class*="text-slate-500"] { color: #94a3b8 !important; }
+        html.dark [class*="text-slate-400"] { color: #64748b !important; }
+
+        html.dark [class*="text-blue-600"]    { color: #60a5fa !important; }
+        html.dark [class*="text-blue-700"]    { color: #3b82f6 !important; }
+        html.dark [class*="text-amber-600"]   { color: #fbbf24 !important; }
+        html.dark [class*="text-amber-800"]   { color: #fcd34d !important; }
+        html.dark [class*="text-emerald-600"] { color: #34d399 !important; }
+        html.dark [class*="text-emerald-700"] { color: #6ee7b7 !important; }
+        html.dark [class*="text-indigo-600"]  { color: #818cf8 !important; }
+        html.dark [class*="text-indigo-800"]  { color: #a5b4fc !important; }
+        html.dark [class*="text-purple-600"]  { color: #c084fc !important; }
+        html.dark [class*="text-rose-600"]    { color: #fb7185 !important; }
+
+        /* Nav / footer / lightbox already dark-toned; keep them as-is */
+        html.dark nav[class*="bg-white"] { background-color: rgba(15, 23, 42, 0.85) !important; }
+
+        /* ---------- Theme toggle switch ---------- */
+        #themeToggle {
+            position: relative;
+            width: 3rem;
+            height: 1.65rem;
+            border-radius: 999px;
+            background: #cbd5e1;
+            border: none;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.3s ease;
+        }
+        html.dark #themeToggle { background: #334155; }
+        #themeToggle .knob {
+            position: absolute;
+            top: 2px; left: 2px;
+            width: 1.25rem; height: 1.25rem;
+            border-radius: 999px;
+            background: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem;
+            color: #f59e0b;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            transition: transform 0.35s cubic-bezier(.16,.84,.44,1), color 0.3s ease;
+        }
+        html.dark #themeToggle .knob {
+            transform: translateX(1.35rem);
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- STICKY TOP NAVIGATION BAR -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-bold text-xl tracking-tight text-slate-900">Sabbir<span class="text-blue-600">Hossain.</span></a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#research" class="hover:text-blue-600 transition">Research</a>
+                <a href="#certificates" class="hover:text-blue-600 transition">Certificates</a>
+                <a href="#experience" class="hover:text-blue-600 transition">Experience</a>
+                <a href="#projects" class="hover:text-blue-600 transition">Projects</a>
+                <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
+                <a href="#activities" class="hover:text-blue-600 transition">Activities</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+            </div>
+
+            <!-- DARK MODE TOGGLE -->
+            <button id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <span class="knob"><i id="themeIcon" class="fa-solid fa-sun"></i></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO / ABOUT SECTION -->
+    <section id="about" class="max-w-5xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12">
+        <div class="flex-1 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                <!-- Change based on user request in image_0.png -->
+                <span>Electrical & Electronic Engineer</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Hi, I'm <span class="text-blue-600">Sabbir Hossain</span>
+            </h1>
+            <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
+                Electrical and Electronic Engineering graduate with a growing interest in high-efficiency PV, tandem and optoelectronic devices. Currently building hands-on experience in computational material screening (DFT via Wien2k) and numerical modeling (SCAPS-1D, PVsyst), exploring next-generation perovskite solar cells and photodetectors as I work toward a career in research.
+            </p>
+            
+            <!-- EDUCATION TIMELINE SEGMENT -->
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-4 max-w-xl">
+                <p class="text-slate-500 font-semibold uppercase tracking-wider text-xs">Education Timeline</p>
+                
+                <div class="border-l-2 border-slate-100 pl-4 space-y-3">
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-blue-600"></div>
+                        <p class="text-slate-900 font-semibold text-sm">B.Sc. in Electrical and Electronic Engineering (EEE)</p>
+                        <p class="text-xs text-slate-600">International Islamic University Chittagong &bull; CGPA: 3.76/4.00</p>
+                        <p class="text-slate-400 text-[11px]">Graduated: June 2026</p>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-slate-300"></div>
+                        <p class="text-slate-900 font-semibold text-sm">Higher Secondary Certificate (HSC)</p>
+                        <p class="text-xs text-slate-600">Science Division &bull; GPA: 5.00/5.00</p>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-slate-300"></div>
+                        <p class="text-slate-900 font-semibold text-sm">Secondary School Certificate (SSC)</p>
+                        <p class="text-xs text-slate-600">Science Division &bull; GPA: 5.00/5.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXTERNAL PROFILE NETWORKS (DIRECT RE-ROUTING) -->
+            <div class="flex flex-wrap gap-4 pt-2">
+                <a href="https://linkedin.com/in/sabbir-hossain-a6645618b" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium text-sm rounded-lg transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-brands fa-linkedin text-blue-600"></i> LinkedIn Profile
+                </a>
+                <a href="https://facebook.com/titans.gaming.106" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium text-sm rounded-lg transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-brands fa-facebook text-blue-600"></i> Facebook
+                </a>
+            </div>
+        </div>
+        
+        <!-- COVER IMAGE + OBJECTIVE BANNER (stacked together, sized down from before) -->
+        <div class="flex flex-col items-center gap-4 shrink-0 w-full max-w-xs sm:max-w-sm">
+            <!-- RESUME / CV BUTTON -->
+            <a href="CV.pdf" target="_blank" rel="noopener noreferrer"
+               class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-lg shadow-sm">
+                <i class="fa-solid fa-file-pdf"></i> Check my CV
+            </a>
+
+            <!-- COVER IMAGE CONTAINER WITH CORRECT FALLBACK LOGIC -->
+            <div class="w-full aspect-[885/1300] rounded-xl bg-slate-100 border-4 border-white shadow-xl overflow-hidden relative group">
+                <img src="image/coverphoto.crdownload" alt="Sabbir Hossain Banner" class="w-full h-full object-contain" onerror="this.style.display='none'; document.getElementById('avatar-fallback').classList.remove('hidden');">
+                <div id="avatar-fallback" class="hidden absolute inset-0 bg-slate-200 flex items-center justify-center text-slate-400 font-medium text-sm italic">
+                    image/coverphoto.crdownload
+                </div>
+
+                <!-- INTRO VIDEO TRIGGER -->
+                <button onclick="playIntro()" aria-label="Play introduction video"
+                        class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/0 hover:bg-black/25 transition-colors duration-300">
+                    <span class="relative flex items-center justify-center">
+                        <span class="play-pulse-ring absolute w-16 h-16 rounded-full bg-white/70"></span>
+                        <span class="relative w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center">
+                            <i class="fa-solid fa-play text-blue-600 text-lg ml-1"></i>
+                        </span>
+                    </span>
+                    <span class="intro-hint px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-xs font-semibold tracking-wide">
+                        Click here
+                    </span>
+                </button>
+            </div>
+
+            <!-- OBJECTIVE BANNER -->
+            <div class="w-full rounded-xl bg-blue-50 border border-blue-200 px-4 py-3 text-center">
+                <p class="text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-1">
+                    <i class="fa-solid fa-bullseye mr-1"></i>Currently Seeking
+                </p>
+                <p class="text-sm text-slate-700 font-medium leading-snug">
+                    MSc / PhD &amp; Research Assistantship opportunities
+                </p>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- RESEARCH WORK & INTERESTS SECTION -->
+    <section id="research" class="bg-white border-y border-slate-200 py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Research Work & Interests</h2>
+                <p class="text-slate-500 mt-2">Computational Density Functional Theory (DFT), and halide perovskite simulation frameworks.</p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Undergrad Thesis -->
+                <div class="p-6 rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50/30 to-transparent shadow-sm">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-0.5 rounded-full font-medium border border-blue-200">Undergraduate Thesis</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 mb-2">Study of Vacancy-Ordered Double Perovskite Cs<sub>2</sub>PtI<sub>6</sub> for Solar Cell Applications Using SCAPS-1D Simulation</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Evaluated optoelectronic properties, layer optimizations, and computational modeling parameters to enhance single-halide and double-halide perovskite efficiencies for next-generation solar cells and photodetector scaling.
+                    </p>
+                    <button onclick="viewCert('image/thesis.jpeg')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 mt-3 flex items-center gap-1.5">
+                        <i class="fa-solid fa-folder-open text-[11px]"></i> Sneak Peek: View Abstract
+                    </button>
+                </div>
+
+                <!-- Active Lab Appointment -->
+                <div class="p-6 rounded-xl border border-slate-200 bg-white shadow-sm">
+                    <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
+                        <div>
+                            <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-0.5 rounded-full font-medium border border-emerald-200">Active Lab Appointment</span>
+                            <h3 class="text-xl font-bold text-slate-950 mt-2">Research Assistant</h3>
+                            <p class="text-sm text-slate-500">Material Research and Simulation Lab</p>
+                        </div>
+                        <span class="text-slate-400 text-xs font-medium">Jan 2026 - Present</span>
+                    </div>
+                    <ul class="text-slate-600 text-sm space-y-2 list-disc list-inside">
+                        <li>Utilizing first-principles DFT calculations to screen electronic structures and validate structural profiles of target solar configurations.</li>
+                    </ul>
+                </div>
+
+                <!-- Manuscript Pipeline -->
+                <div class="pt-6 space-y-6">
+                    <h4 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-blue-600 text-sm"></i> Manuscript Assembly Pipeline
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 gap-4">
+                        <!-- Under Active Peer Review -->
+                        <div class="p-5 rounded-xl border border-amber-100 bg-amber-50/20 space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Under Active Peer Review (2 Papers)</span>
+                            </div>
+                            <div class="space-y-3 divide-y divide-slate-100">
+                                <div class="pt-1">
+                                    <h5 class="text-sm font-bold text-slate-900">1. First-Principles Electronic Mapping and Device-Level Optimization of Specialized Bromide Perovskite Architectures</h5>
+                                    <p class="text-xs text-slate-500 mt-1">Integrates advanced formulations to map a reliable 23.33% power conversion efficiency milestone.</p>
+                                    <button onclick="viewCert('image/BiBr.jpeg')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 mt-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-folder-open text-[11px]"></i> Sneak Peek: View Abstract
+                                    </button>
+                                </div>
+                                <div class="pt-3">
+                                    <h5 class="text-sm font-bold text-slate-900">2. Investigating Mechanical, Electronic, and Structural Phase Changes in Optimized Chloride-Based Halide Networks</h5>
+                                    <p class="text-xs text-slate-500 mt-1">Employs heavy computational scaling parameters to establish a durable 23.50% output framework.</p>
+                                    <button onclick="viewCert('image/BiCl.png')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 mt-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-folder-open text-[11px]"></i> Sneak Peek: View Abstract
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ready to Submit -->
+                        <div class="p-5 rounded-xl border border-indigo-100 bg-indigo-50/10 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Ready to Submit (1 Paper)</span>
+                            </div>
+                            <h5 class="text-sm font-bold text-slate-900">3. Numerical Modeling and Charge Transport Dynamics of Vacancy-Ordered Double Perovskite Heterojunctions</h5>
+                            <p class="text-xs text-slate-500">Comprehensive layer validation completing structural analysis parameters for immediate publication routing.</p>
+                            <button onclick="viewCert('image/vacancy.jpeg')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 mt-2 flex items-center gap-1.5">
+                                <i class="fa-solid fa-folder-open text-[11px]"></i> Sneak Peek: View Abstract
+                            </button>
+                        </div>
+
+                        <!-- Currently Writing -->
+                        <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">In Preparation / Currently Writing (2 Papers)</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="text-sm font-bold text-slate-950">4. High-Performance Perovskite Photodetectors Via Density Functional Verification</h5>
+                                    <p class="text-xs text-slate-500 mt-0.5">Drafting data matrices tracking quantum efficiency spikes across tailored illumination boundaries.</p>
+                                    <button onclick="viewCert('image/BiIr.jpeg')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 mt-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-folder-open text-[11px]"></i> Sneak Peek: View Abstract
+                                    </button>
+                                </div>
+                                <div>
+                                    <h5 class="text-sm font-bold text-slate-950">5. Comparative Efficiency Potentials of Alternative Electron Transport Layers</h5>
+                                    <p class="text-xs text-slate-500 mt-0.5">Compiling numerical datasets contrasting structural variations within SCAPS environments.</p>
+                                    <button onclick="viewCert('image/abstract_paper5.jpg')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 mt-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-folder-open text-[11px]"></i> Sneak Peek: View Abstract
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS SECTIONS -->
+    <section id="certificates" class="max-w-5xl mx-auto px-6 py-20">
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Academic & Professional Certifications</h2>
+            <p class="text-slate-500 mt-2">Verified credentials spanning research engineering assistantships, automation tracks, and solar design architectures.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+             <!-- 0 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IIUC</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Provisional Certificate</h3>
+                </div>
+                <button onclick="viewCert('image/extended_1/provisional.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+             <!-- 0.1 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IELTS</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">My IELTS SCORE</h3>
+                </div>
+                <button onclick="viewCert('image/extended_1/IELTS.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 1 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IIUC</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Academic Teaching Assistantship</h3>
+                </div>
+                <button onclick="viewCert('image/TeachingAssistant_Certificate.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 2 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Professional Track</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Photovoltaic Power Plant Design</h3>
+                </div>
+                <button onclick="viewCert('image/Professional_PV_powerPlant_Design.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 3 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Automation Institute</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Industrial Automation & Controls</h3>
+                </div>
+                <button onclick="viewCert('image/Professional_Industrial_Automation.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 4 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IIUC EEE Club</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Assistant Secretary Executive</h3>
+                </div>
+                <button onclick="viewCert('image/AssistantSecretary2_Embedded&RoboticsSociety_EEE_Club.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 5 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Academic Council</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Abstract Writing Laurels</h3>
+                </div>
+                <button onclick="viewCert('image/Abstract_writing_competition.png')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 6 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">BSRM Steel Group</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Industrial Engineering Practicum</h3>
+                </div>
+                <button onclick="viewCert('image/bsrm.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 7 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">EEE Club Workshop</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Mobile Robotics Configuration</h3>
+                </div>
+                <button onclick="viewCert('image/Workshop_SoccerBotsDesign.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 8 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IEEE Link Node</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Microcontroller Embedded Systems</h3>
+                </div>
+                <button onclick="viewCert('image/Workshop_EmbeddedDesign&Robotics.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 9 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Technical Seminar</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Machine Learning in Robotics</h3>
+                </div>
+                <button onclick="viewCert('image/seminer_IntegratingMLwithRobotics.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 10 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IIUC Hub</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Programmable Logic Controllers</h3>
+                </div>
+                <button onclick="viewCert('image/Seminer_PLC.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 11 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">RoverX Panel</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Mars Rover Design Challenges</h3>
+                </div>
+                <button onclick="viewCert('image/Seminer_Participation_MarsRoverChallenge_RoverX.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 12 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Hult Foundation</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Global Innovation Track</h3>
+                </div>
+                <button onclick="viewCert('image/Hult_prize.png')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 13 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Corporate Matrix</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Strategic Business Operations</h3>
+                </div>
+                <button onclick="viewCert('image/Seminer_Sales&MarketingforEngineers.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 14 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Utility Lab</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Electrical System Upkeep</h3>
+                </div>
+                <button onclick="viewCert('image/TutorialSession_ElectricalMaintenance.jpg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+            <!-- 15 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between p-4">
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">IEB</span>
+                    <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2">Fresh graduate training</h3>
+                </div>
+                <button onclick="viewCert('image/IEB_certificate.jpeg')" class="text-xs font-semibold text-slate-500 hover:text-blue-600 text-left mt-2 flex items-center gap-1">
+                    <i class="fa-solid fa-image text-[10px]"></i> View Document
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE SECTION (STRICT TIMELINE PATTERN) -->
+    <section id="experience" class="max-w-5xl mx-auto px-6 py-20 border-t border-slate-200">
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Professional Experience</h2>
+            <p class="text-slate-500 mt-2">Academic teaching assistance, project recruitment tracks, and core engineering internships.</p>
+        </div>
+
+        <div class="space-y-6">
+            <!-- 1. TA -->
+            <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-start gap-4">
+                <div class="space-y-2">
+                    <h3 class="font-bold text-lg text-slate-900">Teaching Assistant</h3>
+                    <p class="text-sm text-blue-600 font-medium">International Islamic University Chittagong (IIUC) Department of EEE</p>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Facilitated engineering laboratory modules, monitored experimental protocols, and evaluated comprehensive academic lab reports.
+                    </p>
+                </div>
+                <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">July 2025 - Dec 2025</span>
+            </div>
+
+            <!-- 2. HULT PRIZE -->
+            <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-start gap-4">
+                <div class="space-y-2">
+                    <h3 class="font-bold text-lg text-slate-900">Associate of Human Resource and Development</h3>
+                    <p class="text-sm text-blue-600 font-medium">Hult Prize OnCampus Program</p>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Managed volunteer coordination, talent recruitment, and strategic team-building frameworks to support global innovation tracks on campus.
+                    </p>
+                </div>
+                <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">2024 - 2025 Session</span>
+            </div>
+
+            <!-- 3. EEE CLUB -->
+            <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-start gap-4">
+                <div class="space-y-2">
+                    <h3 class="font-bold text-lg text-slate-900">Leadership Roles & Secretariat</h3>
+                    <p class="text-sm text-blue-600 font-medium">IIUC EEE Club</p>
+                    <div class="text-xs font-semibold text-slate-700 space-y-1 my-1">
+                        <p><i class="fa-solid fa-chevron-right text-[10px] text-blue-600 mr-1"></i> Cultural Secretary <span class="text-slate-400">(Autumn 2025 Session)</span></p>
+                        <p><i class="fa-solid fa-chevron-right text-[10px] text-blue-600 mr-1"></i> Assistant Secretary – Embedded & Robotics Society <span class="text-slate-400">(Autumn 2024 Session)</span></p>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed pt-1">
+                        Coordinated critical technical logistics, managed event operations, and executed hands-on engineering workshops across the department.
+                    </p>
+                </div>
+                <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">Leadership Secretariat</span>
+            </div>
+
+            <!-- 4. BSRM -->
+            <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-start gap-4">
+                <div class="space-y-2">
+                    <h3 class="font-bold text-lg text-slate-900">Engineering Intern</h3>
+                    <p class="text-sm text-blue-600 font-medium">BSRM (Bangladesh Steel Re-Rolling Mills)</p>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Observed industrial-scale automation system layouts, monitored high-voltage distribution networks, and analyzed industrial control room workflows.
+                    </p>
+                </div>
+                <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">November 2025</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENGINEERING PROJECTS SECTION (6-CARD COMPREHENSIVE MATRIX) -->
+    <section id="projects" class="bg-slate-100 border-y border-slate-200 py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Engineering Projects</h2>
+                <p class="text-slate-500 mt-2">Embedded frameworks, computer vision builds, and industrial logic designs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1 -->
+                <div class="p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div>
+                        <span class="text-[10px] font-bold text-purple-600 tracking-wider uppercase">Software Architecture</span>
+                        <h3 class="font-bold text-slate-900 mt-1 mb-2">ATM Security Logic System</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            A software-configured verification matrix mapped within processing logic pathways to present complete secure validation tracking sequences without hardware reliance vulnerabilities.
+                        </p>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-4 font-mono">Cadence Logic Environment</span>
+                </div>
+
+                <!-- 2 -->
+                <div class="p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div>
+                        <span class="text-[10px] font-bold text-rose-600 tracking-wider uppercase">Power Generation</span>
+                        <h3 class="font-bold text-slate-900 mt-1 mb-2">Servo-Driven Kinetic Energy Harvesting</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Speed breaker design mapping mechanical vehicular displacement loads into electrical storage matrices using optimized servo configurations according to official report layouts.
+                        </p>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-4 font-mono">Mechanical Framework</span>
+                </div>
+
+                <!-- 3 -->
+                <div class="p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div>
+                        <span class="text-[10px] font-bold text-emerald-600 tracking-wider uppercase">Power Systems</span>
+                        <h3 class="font-bold text-slate-900 mt-1 mb-2">Autonomous Solar Home Configuration</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Complete clean household power network mapped directly through structured multi-tier framework metrics: Harvesting &rarr; Filtering &rarr; Battery Storage &rarr; Inverter Stage.
+                        </p>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-4 font-mono">Circuit Design</span>
+                </div>
+
+                <!-- 4 -->
+                <div class="p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div>
+                        <span class="text-[10px] font-bold text-blue-600 tracking-wider uppercase">Computer Vision</span>
+                        <h3 class="font-bold text-slate-900 mt-1 mb-2">Automatic Attendance System</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Engineered a Python-driven facial recognition model to catalog real-time classroom attendance directories dynamically.
+                        </p>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-4 font-mono">Python</span>
+                </div>
+
+                <!-- 5 -->
+                <div class="p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div>
+                        <span class="text-[10px] font-bold text-amber-600 tracking-wider uppercase">Microcontroller Architecture</span>
+                        <h3 class="font-bold text-slate-900 mt-1 mb-2">Programmable Matrix Display</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Programmed an interactive 32x32 digital dot matrix visualizer framework utilizing standalone Arduino Uno modules.
+                        </p>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-4 font-mono">Arduino Board</span>
+                </div>
+
+                <!-- 6 -->
+                <div class="p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div>
+                        <span class="text-[10px] font-bold text-indigo-600 tracking-wider uppercase">Robotics & IoT</span>
+                        <h3 class="font-bold text-slate-900 mt-1 mb-2">Wi-Fi Control Mini Car</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Designed and engineered an IoT-enabled mini car using a NodeMCU module and 12V gear motors. Built as a hands-on educational tool to introduce teenagers to mechanics and reduce digital game screen-time.
+                        </p>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-4 font-mono">NodeMCU ESP8266 / Arduino IDE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION (NAME-ONLY DICTIONARIES) -->
+    <section id="skills" class="max-w-5xl mx-auto px-6 py-20 space-y-12">
+        <div>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Technical Skills & Tools</h2>
+            <p class="text-slate-500 mt-2">Core modeling engines, hardware architecture, programming environments, and language matrices.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
+            <div class="space-y-3">
+                <p class="font-semibold uppercase text-xs tracking-wider text-blue-600">PV & Materials Modeling</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">SCAPS-1D</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">WIEN2k</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">PVsyst</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <p class="font-semibold uppercase text-xs tracking-wider text-blue-600">Programming & Engineering</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Python</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">MATLAB</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Arduino C/C++ IDE</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <p class="font-semibold uppercase text-xs tracking-wider text-blue-600">Circuit Simulation & CAD</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Cadence</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">LTspice</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">NI Multisim</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">AutoCAD</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">TinkerCAD</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <p class="font-semibold uppercase text-xs tracking-wider text-blue-600">Industrial Automation Systems</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Siemens TIA Portal</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Automation Studio</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <p class="font-semibold uppercase text-xs tracking-wider text-blue-600">Languages</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Bangla (Native)</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">English</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium shadow-sm">Hindi (Spoken)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTIVITIES SECTION (AUTO-SLIDING PHOTO CAROUSEL) -->
+    <section id="activities" class="bg-slate-100 border-y border-slate-200 py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Activities</h2>
+                <p class="text-slate-500 mt-2">Recent hands-on engagements, industrial attachments, and training programs.</p>
+            </div>
+
+            <!-- Group tabs: pick which event's photos the banner below shows -->
+            <div id="activityTabs" class="flex flex-wrap gap-2 mb-4"></div>
+
+            <!-- Slider: shows the photos of whichever event is selected above.
+                 Prev/Next and auto-play move between photos within that event only. -->
+            <div id="activitySlider" class="relative rounded-xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm">
+                <div class="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden">
+                    <div id="activityTrack" class="flex h-full transition-transform duration-700" style="transition-timing-function: cubic-bezier(.16,.84,.44,1);">
+                        <!-- Slides injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Prev / Next arrows -->
+                <button id="activityPrev" aria-label="Previous photo" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+                <button id="activityNext" aria-label="Next photo" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+
+                <!-- Dot indicators -->
+                <div id="activityDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
+            </div>
+
+            <!-- Thumbnail strip: shows every photo in the currently selected event group -->
+            <div id="activityThumbs" class="flex gap-2 mt-4 overflow-x-auto pb-1"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT MATRIX SECTION -->
+    <section id="contact" class="bg-white border-t border-slate-200 py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Contact</h2>
+                <p class="text-slate-500 mt-2">Open to Research Assistantships, graduate applications, and research collaboration pathways.</p>
+            </div>
+
+            <div class="max-w-xl">
+                <!-- Direct Route Coordinates -->
+                <div class="space-y-6 text-sm text-slate-600 bg-slate-50 rounded-xl p-6 border border-slate-100">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-base mb-1">Direct Communications Routing</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Prefer email? Use the button below, or reach me through the phone and profile links.</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope text-blue-600 w-4 mt-0.5"></i>
+                            <div class="space-y-2.5">
+                                <div>
+                                    <p class="text-xs text-slate-400 font-semibold uppercase">Email</p>
+                                    <span class="text-slate-800 font-mono text-sm select-all">sabbir00hassain@gmail.com</span>
+                                </div>
+                                <!-- GMAIL COMPOSE BUTTON + REASSURING DESCRIPTION -->
+                                <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sabbir00hassain@gmail.com&su=Portfolio%20Inquiry"
+                                       target="_blank" rel="noopener noreferrer"
+                                       class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-sm">
+                                        <i class="fa-brands fa-google"></i> Email me on Gmail
+                                    </a>
+                                    <p class="text-xs text-slate-500 leading-snug max-w-[14rem]">
+                                        Opens a new Gmail draft already addressed to me. Nothing is sent until you press Send.
+                                    </p>
+                                </div>
+                                <p class="text-[11px] text-slate-400">
+                                    Not using Gmail? <a href="mailto:sabbir00hassain@gmail.com?subject=Portfolio%20Inquiry" class="text-blue-600 hover:underline">Open your default mail app</a> instead.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone text-blue-600 w-4 mt-0.5"></i>
+                            <div>
+                                <p class="text-xs text-slate-400 font-semibold uppercase">Phone &amp; WhatsApp</p>
+                                <div class="flex items-center gap-2.5">
+                                    <a href="tel:+8801521538036" class="text-slate-800 font-medium hover:text-blue-600">+88 01521538036</a>
+                                    <a href="https://wa.me/8801521538036" target="_blank" rel="noopener noreferrer"
+                                       aria-label="Message me on WhatsApp" title="Message me on WhatsApp"
+                                       class="text-[#25D366] hover:text-[#1ebe5b] text-lg leading-none">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-blue-600 w-4 mt-0.5"></i>
+                            <div>
+                                <p class="text-xs text-slate-400 font-semibold uppercase">Location Bounds</p>
+                                <span class="text-slate-800 font-medium">CDA Abashik, Akbar Shah, Chattogram, Bangladesh</span>
+                            </div>
+                        </div>
+                        <div class="pt-2 border-t border-slate-200 flex gap-4">
+                            <a href="https://linkedin.com/in/sabbir-hossain-a6645618b" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-blue-600 transition flex items-center gap-1 font-medium text-xs">
+                                <i class="fa-brands fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://facebook.com/titans.gaming.106" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-blue-600 transition flex items-center gap-1 font-medium text-xs">
+                                <i class="fa-brands fa-facebook"></i> Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-xs text-center">
+        <p>&copy; 2026 Sabbir Hossain. All rights reserved.</p>
+    </footer>
+
+    <!-- LIGHTBOX OVERLAY PORTAL -->
+    <div id="certLightbox" onclick="closeCert()" class="fixed inset-0 bg-black/95 z-[999] hidden items-center justify-center p-4 cursor-pointer">
+        <div class="max-w-4xl max-h-[85vh] relative" onclick="event.stopPropagation()">
+            <button onclick="closeCert()" class="absolute -top-10 right-0 text-white text-3xl hover:text-slate-300">&times;</button>
+            <img id="lightboxTarget" src="" alt="Certificate View" class="max-w-full max-h-[80vh] rounded shadow-2xl border border-slate-800">
+        </div>
+    </div>
+
+    <!-- VIDEO LIGHTBOX PORTAL (intro video) -->
+    <div id="videoLightbox" onclick="closeIntro()" class="fixed inset-0 bg-black/95 z-[999] hidden items-center justify-center p-4 cursor-pointer">
+        <div class="w-full max-w-3xl relative" onclick="event.stopPropagation()">
+            <button onclick="closeIntro()" class="absolute -top-10 right-0 text-white text-3xl hover:text-slate-300">&times;</button>
+            <video id="introVideoTarget" controls playsinline class="w-full max-h-[80vh] rounded shadow-2xl border border-slate-800 bg-black">
+                <source src="image/intro.mp4" type="video/mp4">
+                Your browser doesn't support embedded video.
+            </video>
+        </div>
+    </div>
+
+    <!-- SCRIPT CONTROLLERS -->
+    <script>
+        const modal = document.getElementById('certLightbox');
+        const modalImg = document.getElementById('lightboxTarget');
+
+        function viewCert(imgPath) {
+            modalImg.src = imgPath;
+            modal.classList.remove('hidden');
+            // next frame so the opacity/scale transition actually runs
+            requestAnimationFrame(() => modal.classList.add('flex'));
+        }
+
+        function closeCert() {
+            modal.classList.remove('flex');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalImg.src = '';
+            }, 250); // matches the CSS transition duration
+        }
+
+        // ---------- Intro video ----------
+        const videoModal = document.getElementById('videoLightbox');
+        const introVideo = document.getElementById('introVideoTarget');
+
+        function playIntro() {
+            videoModal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                videoModal.classList.add('flex');
+                introVideo.currentTime = 0;
+                introVideo.play().catch(() => {}); // ignore autoplay-block errors; controls still let them press play
+            });
+        }
+
+        function closeIntro() {
+            videoModal.classList.remove('flex');
+            introVideo.pause();
+            setTimeout(() => {
+                videoModal.classList.add('hidden');
+            }, 250);
+        }
+    </script>
+
+    <!-- ACTIVITIES SLIDER -->
+    <script>
+        (function () {
+            // Each entry is one real-world EVENT. Put multiple photos from the
+            // same event under "photos". The order of this array is the tab
+            // display order — put your most important / current activity first.
+            const activityGroups = [
+                {
+                    title: 'Farewell',
+                    subtitle: 'Graduate Engineers',
+                    icon: 'fa-graduation-cap',
+                    photos: [
+                        {
+                            img: 'image/extended_1/farewel1.jpg',
+                            caption: 'Receiving crest from dean - faculty of science, Prof. Engr. Md. Razu Ahmed.'
+                        },
+                        {
+                            img: 'image/extended_1/farewel2.jpg',
+                            caption: 'Fresh graduate engineers.'
+                        },
+                        {
+                            img: 'image/extended_1/farewel3.jpg',
+                            caption: 'My thesis partner Engr. Faisal Rana Haroon.'
+                        },
+                        {
+                            img: 'image/extended_1/farewel4.jpg',
+                            caption: 'End of 4 years journey.'
+                        }
+                    ]
+                },
+                {
+                    title: 'IEB Fresh Graduate Training',
+                    subtitle: 'Institution of Engineers, Bangladesh (IEB)',
+                    icon: 'fa-solid fa-chalkboard-user',
+                    photos: [
+                        {
+                            img: 'image/IEB_fresh_graduate_trainingp1.jpg',
+                            caption: 'Post-graduation training program at the Institution of Engineers, Bangladesh (IEB).'
+                        },
+                        {
+                            img: 'image/IEB_fresh_graduate_trainingp2.jpg',
+                            caption: 'Hands-on sessions and professional orientation as part of the IEB fresh graduate program.'
+                        },
+                        {
+                            img: 'image/IEB_closing_ceremony.jpeg',
+                            caption: 'Closing ceremony of the 11 days long program.'
+                        },
+                        {
+                            img: 'image/IEB_certificate.jpeg',
+                            caption: 'Certificate.'
+                        }
+                    ]
+                },
+                {
+                    title: 'Saint Martin Power Plant Visit',
+                    subtitle: 'Engineering observation tour — solar & diesel hybrid plant',
+                    icon: 'fa-solar-panel',
+                    photos: [
+                        {
+                            img: 'image/SaintMartinSolarVisit_p1.jpg',
+                            caption: 'Saint Martin visit to study its electricity production and supply.'
+                        },
+                        {
+                            img: 'image/SaintMartinSolarVisit_p2.jpg',
+                            caption: 'Storage room.'
+                        },
+                        {
+                            img: 'image/SaintMartinSolarVisit_p3.jpg',
+                            caption: 'Control and monitoring room.'
+                        },
+                        {
+                            img: 'image/SaintMartinSolarVisit_p4.jpg',
+                            caption: 'Diesel-based generator used as backup.'
+                        },
+                        {
+                            img: 'image/SaintMartinSolarVisit_p5.jpg',
+                            caption: 'Environmental impact and engineering observation tour with the team.'
+                        }
+                    ]
+                },
+                {
+                    title: 'Material Research and Simulation Lab (MRSL) Get-Together',
+                    subtitle: 'Crest giving ceremony for MEXT awardees',
+                    icon: 'fa-solid fa-shield',
+                    photos: [
+                        {
+                            img: 'image/extended_1/MRSL_1.jpg',
+                            caption: 'Newspaper coverage.'
+                        },
+                        {
+                            img: 'image/extended_1/MRSL_2.jpg',
+                            caption: 'Speach by Chaiman of MRSL - Dr. Zahid Hasasn.'
+                        },
+                        {
+                            img: 'image/extended_1/MRSL_3.jpg',
+                        },
+                        {
+                            img: 'image/extended_1/MRSL_4.jpg',
+                        },
+                        {
+                            img: 'image/extended_1/MRSL_5.jpg',
+                            caption: 'Team MRSL'
+                        }
+                    ]
+                },
+                {
+                    title: 'Industrial Attachment — BSRM',
+                    subtitle: 'Bangladesh Steel Re-Rolling Mills',
+                    icon: 'fa-industry',
+                    photos: [
+                        {
+                            img: 'image/BSRM_attachement_pic1.jpg',
+                            caption: 'On-site industrial attachment observing steel manufacturing and automation systems at BSRM.'
+                        },
+                        {
+                            img: 'image/BSRM_attachement_pic2.jpg',
+                            caption: 'Hands-on exposure to plant operations.'
+                        }
+                    ]
+                }
+            ];
+
+            const tabsWrap = document.getElementById('activityTabs');
+            const track = document.getElementById('activityTrack');
+            const dotsWrap = document.getElementById('activityDots');
+            const thumbsWrap = document.getElementById('activityThumbs');
+            const prevBtn = document.getElementById('activityPrev');
+            const nextBtn = document.getElementById('activityNext');
+            const slider = document.getElementById('activitySlider');
+
+            if (!track || activityGroups.length === 0) return;
+
+            let currentGroupIdx = 0;
+            let currentPhoto = 0;
+            let timer = null;
+
+            // ---- Build the folder-style group tabs ----
+            function renderTabs() {
+                tabsWrap.innerHTML = '';
+                activityGroups.forEach((group, gi) => {
+                    const tab = document.createElement('button');
+                    const active = gi === currentGroupIdx;
+                    tab.className = 'activity-tab flex items-center gap-2 px-3.5 py-2 rounded-lg border text-sm font-medium transition-all duration-250 ' +
+                        (active
+                            ? 'bg-blue-600 border-blue-600 text-white shadow-sm'
+                            : 'bg-white border-slate-200 text-slate-600 hover:border-blue-300 hover:text-blue-600');
+                    tab.innerHTML = `
+                        <i class="fa-solid ${group.icon || 'fa-folder'} text-xs"></i>
+                        <span>${group.title}</span>
+                        <span class="text-[10px] font-mono px-1.5 py-0.5 rounded ${active ? 'bg-white/20' : 'bg-slate-100'}">${group.photos.length}</span>
+                    `;
+                    tab.addEventListener('click', () => selectGroup(gi));
+                    tabsWrap.appendChild(tab);
+                });
+            }
+
+            // ---- Rebuild the slider's photo slides for the selected group ----
+            function renderSlides() {
+                track.innerHTML = '';
+                const group = activityGroups[currentGroupIdx];
+                group.photos.forEach((photo) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'shrink-0 w-full h-full relative';
+                    slide.innerHTML = `
+                        <img src="${photo.img}" alt="${group.title}"
+                             class="w-full h-full object-cover"
+                             onerror="this.style.display='none'; this.parentElement.querySelector('.img-fallback').classList.remove('hidden');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none"></div>
+                        <div class="img-fallback hidden absolute inset-0 bg-slate-800 flex items-center justify-center text-slate-400 text-sm italic">${photo.img}</div>
+                        <div class="caption absolute bottom-0 left-0 right-0 p-5 md:p-7 text-white opacity-0 translate-y-3 transition-all duration-500 ease-out">
+                            <div class="flex items-center justify-between gap-3">
+                                <h3 class="font-bold text-base md:text-lg">${group.title}</h3>
+                                ${group.photos.length > 1 ? `<span class="photo-counter text-[11px] text-slate-300 font-mono shrink-0"></span>` : ''}
+                            </div>
+                            <p class="text-[11px] md:text-xs text-blue-300 font-medium mt-0.5">${group.subtitle}</p>
+                            <p class="text-xs md:text-sm text-slate-200 mt-1 max-w-xl">${photo.caption}</p>
+                        </div>
+                    `;
+                    track.appendChild(slide);
+                });
+            }
+
+            function renderDots() {
+                dotsWrap.innerHTML = '';
+                const group = activityGroups[currentGroupIdx];
+                if (group.photos.length <= 1) return;
+                group.photos.forEach((_, pi) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'w-2 h-2 rounded-full transition-all duration-300 ' + (pi === 0 ? 'bg-white w-5' : 'bg-white/50');
+                    dot.setAttribute('aria-label', `Go to photo ${pi + 1}`);
+                    dot.addEventListener('click', () => goToPhoto(pi));
+                    dotsWrap.appendChild(dot);
+                });
+            }
+
+            function renderThumbs() {
+                thumbsWrap.innerHTML = '';
+                const group = activityGroups[currentGroupIdx];
+                if (group.photos.length <= 1) {
+                    thumbsWrap.classList.add('hidden');
+                    return;
+                }
+                thumbsWrap.classList.remove('hidden');
+                group.photos.forEach((photo, pi) => {
+                    const thumb = document.createElement('button');
+                    thumb.className = 'thumb shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-300 ' +
+                        (pi === 0 ? 'border-blue-500 opacity-100' : 'border-transparent opacity-60 hover:opacity-90');
+                    thumb.innerHTML = `<img src="${photo.img}" alt="${group.title} photo ${pi + 1}" class="w-full h-full object-cover" onerror="this.style.opacity=0;">`;
+                    thumb.addEventListener('click', () => goToPhoto(pi));
+                    thumbsWrap.appendChild(thumb);
+                });
+            }
+
+            // ---- Photo navigation WITHIN the selected group ----
+            function updateActiveStates() {
+                const slideEls = Array.from(track.children);
+                const dots = Array.from(dotsWrap.children);
+                const thumbs = Array.from(thumbsWrap.children);
+                const group = activityGroups[currentGroupIdx];
+
+                track.style.transform = `translateX(-${currentPhoto * 100}%)`;
+
+                slideEls.forEach((s, i) => {
+                    const caption = s.querySelector('.caption');
+                    const counter = s.querySelector('.photo-counter');
+                    if (counter) counter.textContent = `${currentPhoto + 1} / ${group.photos.length}`;
+                    if (i === currentPhoto) {
+                        setTimeout(() => caption.classList.remove('opacity-0', 'translate-y-3'), 350);
+                    } else {
+                        caption.classList.add('opacity-0', 'translate-y-3');
+                    }
+                });
+
+                dots.forEach((d, i) => {
+                    d.classList.toggle('bg-white', i === currentPhoto);
+                    d.classList.toggle('w-5', i === currentPhoto);
+                    d.classList.toggle('bg-white/50', i !== currentPhoto);
+                });
+
+                thumbs.forEach((t, i) => {
+                    t.classList.toggle('border-blue-500', i === currentPhoto);
+                    t.classList.toggle('opacity-100', i === currentPhoto);
+                    t.classList.toggle('border-transparent', i !== currentPhoto);
+                    t.classList.toggle('opacity-60', i !== currentPhoto);
+                });
+            }
+
+            function goToPhoto(index) {
+                const total = activityGroups[currentGroupIdx].photos.length;
+                currentPhoto = (index + total) % total;
+                updateActiveStates();
+                restartTimer();
+            }
+
+            function nextPhoto() { goToPhoto(currentPhoto + 1); }
+            function prevPhoto() { goToPhoto(currentPhoto - 1); }
+
+            // ---- Group selection (via the tabs) ----
+            function selectGroup(index) {
+                currentGroupIdx = index;
+                currentPhoto = 0;
+                renderTabs();
+                renderSlides();
+                renderDots();
+                renderThumbs();
+                updateActiveStates();
+                restartTimer();
+            }
+
+            function restartTimer() {
+                clearInterval(timer);
+                const total = activityGroups[currentGroupIdx].photos.length;
+                if (total > 1) {
+                    timer = setInterval(nextPhoto, 3200);
+                }
+            }
+
+            // ---- Initial render ----
+            selectGroup(0);
+
+            nextBtn.addEventListener('click', nextPhoto);
+            prevBtn.addEventListener('click', prevPhoto);
+            slider.addEventListener('mouseenter', () => clearInterval(timer));
+            slider.addEventListener('mouseleave', restartTimer);
+        })();
+    </script>
+    <script>
+        // ---------- Scroll reveal ----------
+        (function () {
+            const selectors = [
+                'section .mb-12',                 // section headers (title + intro)
+                '[class*="rounded-xl"][class*="border"]', // cards
+                '#skills .space-y-3',             // skill category blocks
+                '#about .space-y-6 > *',           // hero copy pieces
+                '#contact form',
+                '#about .inline-flex'
+            ];
+            const targets = new Set();
+            selectors.forEach(sel => document.querySelectorAll(sel).forEach(el => targets.add(el)));
+
+            // group by parent so siblings stagger nicely
+            const byParent = new Map();
+            targets.forEach(el => {
+                const parent = el.parentElement;
+                if (!byParent.has(parent)) byParent.set(parent, []);
+                byParent.get(parent).push(el);
+            });
+
+            byParent.forEach(children => {
+                children.forEach((el, i) => {
+                    el.classList.add('reveal');
+                    el.style.setProperty('--reveal-delay', Math.min(i * 0.08, 0.4) + 's');
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+            targets.forEach(el => observer.observe(el));
+        })();
+
+        // ---------- Dark mode toggle ----------
+        (function () {
+            const root = document.documentElement;
+            const toggleBtn = document.getElementById('themeToggle');
+            const icon = document.getElementById('themeIcon');
+
+            function applyTheme(isDark) {
+                root.classList.toggle('dark', isDark);
+                icon.classList.toggle('fa-sun', !isDark);
+                icon.classList.toggle('fa-moon', isDark);
+            }
+
+            // Start from the visitor's system preference; the switch overrides it for this visit.
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(prefersDark);
+
+            toggleBtn.addEventListener('click', () => {
+                applyTheme(!root.classList.contains('dark'));
+            });
+        })();
+
+        // ---------- Sticky nav shadow on scroll ----------
+        (function () {
+            const nav = document.querySelector('nav');
+            const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
+
+        // ---------- Active nav link highlight while scrolling ----------
+        // Scroll-position based (not IntersectionObserver) so the highlight
+        // always reflects the section closest to the top, in either scroll
+        // direction, instead of getting stuck on whichever section last
+        // fired an "isIntersecting: true" event.
+        (function () {
+            const navLinks = document.querySelectorAll('nav .hidden.md\\:flex a[href^="#"]');
+            const sections = Array.from(navLinks)
+                .map(link => document.querySelector(link.getAttribute('href')))
+                .filter(Boolean);
+
+            const linkFor = id => document.querySelector(`nav .hidden.md\\:flex a[href="#${id}"]`);
+
+            let ticking = false;
+            function updateActiveLink() {
+                const scrollPos = window.scrollY + 120; // nav height + buffer
+                let current = sections[0];
+                for (const sec of sections) {
+                    if (sec.offsetTop <= scrollPos) current = sec;
+                }
+                // Special-case: at the very bottom of the page, force the last section active
+                const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+                if (atBottom) current = sections[sections.length - 1];
+
+                navLinks.forEach(l => l.classList.remove('active-link'));
+                const link = linkFor(current.id);
+                if (link) link.classList.add('active-link');
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateActiveLink);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', updateActiveLink);
+            updateActiveLink(); // set correct state on page load
+        })();
+    </script>
+
+</body>
+</html>
